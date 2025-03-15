@@ -7,38 +7,39 @@
         "dev": "next dev -p 8080",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"  
+        "lint": "next lint"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/excaliburjs/template-nextjs.git"
+        "type": "git",
+        "url": "git+https://github.com/excaliburjs/template-nextjs.git"
     },
     "keywords": [
-      "excalibur",
-      "excaliburjs",
-      "next.js",
-      "react",
-      "typescript",
-      "javascript",
-      "game-engine"
+        "excalibur",
+        "excaliburjs",
+        "next.js",
+        "react",
+        "typescript",
+        "javascript",
+        "game-engine"
     ],
     "author": "Erik Onarheim",
     "license": "BSD-2-Clause",
     "bugs": {
-      "url": "https://github.com/excaliburjs/template-nextjs/issues"
+        "url": "https://github.com/excaliburjs/template-nextjs/issues"
     },
     "homepage": "https://github.com/excaliburjs/template-nextjs#readme",
     "dependencies": {
-      "excalibur": "0.30.3",
-      "next": "~15.2.2",
-      "react": "19.0.0",
-      "react-dom": "19.0.0"
+        "@excaliburjs/plugin-tiled": "^0.30.2",
+        "excalibur": "0.30.3",
+        "next": "~15.2.2",
+        "react": "19.0.0",
+        "react-dom": "19.0.0"
     },
     "devDependencies": {
-      "@playwright/test": "^1.49.1",
-      "@types/node": "^22",
-      "@types/react": "^19",
-      "@types/react-dom": "^19",
-      "typescript": "^5"
+        "@playwright/test": "^1.49.1",
+        "@types/node": "^22",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "typescript": "^5"
     }
 }
