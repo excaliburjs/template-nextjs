@@ -1,7 +1,9 @@
-export default function Home() {
+import App from "@/components/App";
+
+export default function HomePage() {
     return (
       <main>
-        <div>Hello world!</div>
+        <App/>
       </main>
     );
   }
