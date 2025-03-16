@@ -1,6 +1,9 @@
-import { Dispatch, RefObject, SetStateAction, useEffect, useLayoutEffect} from 'react';
-import * as ex from 'excalibur';
+import {Engine, Color, FadeInOut} from 'excalibur';
 
+import { Dispatch, RefObject, SetStateAction, useEffect, useLayoutEffect} from 'react';
+
+import game from '@/excalibur/main';
+import { loader } from "@/excalibur/resources"
 
 interface IRefExcaliburGame
 {
@@ -19,6 +22,16 @@ const ExcaliburGame = ({ref, setSomeState}: IPropsExcaliburGame) =>
     {
         if (ref.current === null)
         {
+            const newGame = game.start('start', { // name of the start scene 'start'
+              loader, // Optional loader (but needed for loading images/sounds)
+              inTransition: new FadeInOut({ // Optional in transition
+                duration: 1000,
+                direction: 'in',
+                color: Color.ExcaliburBlue
+              })
+            }).then(() => {
+                ref.current = {game, currentScene: game.currentScene}
+            });
             
         }
 
@@ -26,13 +39,10 @@ const ExcaliburGame = ({ref, setSomeState}: IPropsExcaliburGame) =>
         {
             if (ref.current?.game)
             {
-                // Engine cleanup
-                if (ref.current.game !== null)
-                {
-                    ref.current.game = null
-                    ref.current = null
-                }
+                game.dispose()
+                ref.current.game = null
             }
+            ref.current = null
         }
     }, []);
 
