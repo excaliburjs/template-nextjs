@@ -1,4 +1,4 @@
-import {Engine, Color, FadeInOut} from 'excalibur';
+import {Engine, Scene, Color, FadeInOut} from 'excalibur';
 
 import { Dispatch, RefObject, SetStateAction, useEffect, useLayoutEffect} from 'react';
 
@@ -7,8 +7,8 @@ import { loader } from "@/excalibur/resources"
 
 interface IRefExcaliburGame
 {
-    game: ex.Engine | null;
-    currentScene: ex.Scene | null;
+    game: Engine | null;
+    currentScene: Scene | null;
 }
 
 interface IPropsExcaliburGame{
@@ -22,7 +22,7 @@ const ExcaliburGame = ({ref, setSomeState}: IPropsExcaliburGame) =>
     {
         if (ref.current === null)
         {
-            const newGame = game.start('start', { // name of the start scene 'start'
+            game.start('start', { // name of the start scene 'start'
               loader, // Optional loader (but needed for loading images/sounds)
               inTransition: new FadeInOut({ // Optional in transition
                 duration: 1000,
@@ -51,7 +51,7 @@ const ExcaliburGame = ({ref, setSomeState}: IPropsExcaliburGame) =>
         // EventEmitter
     }, []);
 
-    return <div id="game-container"></div>
+    return
 }
 
 export {ExcaliburGame as default, type IPropsExcaliburGame, type IRefExcaliburGame}
