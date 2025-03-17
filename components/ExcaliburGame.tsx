@@ -1,9 +1,9 @@
 import { DisplayMode } from "excalibur"
 import { MyLevel } from "@/excalibur/level"
 
-import useExcaliburGame, { excaliburRef } from "@/hooks/useExcaliburGame";
+import useExcaliburGame, { IExcaliburRefComponentProp } from "@/hooks/useExcaliburGame";
 
-const ExcaliburGame = (excaliburRef: excaliburRef)=> {
+const ExcaliburGame = ({ref}: IExcaliburRefComponentProp)=> {
     const excaliburConfig = {
         width: 800, // Logical width and height in game pixels
         height: 600,
@@ -20,7 +20,9 @@ const ExcaliburGame = (excaliburRef: excaliburRef)=> {
         // fixedUpdateTimestep: 16 // Turn on fixed update timestep when consistent physic simulation is important
       }
     
-    useExcaliburGame(excaliburRef, excaliburConfig)
+    useExcaliburGame(ref, excaliburConfig)
+
+    return <></>
 }
 
 export default ExcaliburGame

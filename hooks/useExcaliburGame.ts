@@ -9,16 +9,19 @@ interface IRefExcaliburGame
     currentScene: Scene | null;
 }
 
-type UseExcaliburReturn = [
-    setSomeState:Dispatch<SetStateAction<boolean>>
-]
+type IExcaliburRef = RefObject<IRefExcaliburGame | null>
 
-type excaliburRef = RefObject<IRefExcaliburGame | null>
+type IExcaliburRefComponentProp = {ref: IExcaliburRef}
+
+// type UseExcaliburReturn = [
+//     setSomeState:Dispatch<SetStateAction<boolean>>
+// ]
+
 
 const useExcaliburGame = (
-    excaliburRef: excaliburRef, 
+    excaliburRef: IExcaliburRef, 
     excaliburRefConfig: EngineOptions
-  ): UseExcaliburReturn => {
+  )/*: UseExcaliburReturn */ => {
 
     const [someState, setSomeState] = useState(false)
     
@@ -63,4 +66,4 @@ const useExcaliburGame = (
     return [setSomeState];
   };
 
-export {useExcaliburGame as default, type excaliburRef, type UseExcaliburReturn}
+export {useExcaliburGame as default, type IExcaliburRefComponentProp}
