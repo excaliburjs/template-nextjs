@@ -1,8 +1,6 @@
-import {Engine, Scene, Color, FadeInOut} from 'excalibur';
+import {Engine, Scene, Color, FadeInOut, EngineOptions} from 'excalibur';
+import { Dispatch, RefObject, SetStateAction, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
-import { Dispatch, RefObject, SetStateAction, useEffect, useLayoutEffect} from 'react';
-
-import game from '@/excalibur/main';
 import { loader } from "@/excalibur/resources"
 
 interface IRefExcaliburGame
@@ -11,47 +9,58 @@ interface IRefExcaliburGame
     currentScene: Scene | null;
 }
 
-interface IPropsExcaliburGame{
-    ref: RefObject<IRefExcaliburGame | null>,
+type UseExcaliburReturn = [
     setSomeState:Dispatch<SetStateAction<boolean>>
-}
+]
 
-const ExcaliburGame = ({ref, setSomeState}: IPropsExcaliburGame) =>
-{
-    useLayoutEffect(() =>
-    {
-        if (ref.current === null)
-        {
-            game.start('start', { // name of the start scene 'start'
-              loader, // Optional loader (but needed for loading images/sounds)
-              inTransition: new FadeInOut({ // Optional in transition
-                duration: 1000,
-                direction: 'in',
-                color: Color.ExcaliburBlue
-              })
-            }).then(() => {
-                ref.current = {game, currentScene: game.currentScene}
-            });
-            
-        }
+type excaliburRef = RefObject<IRefExcaliburGame | null>
 
-        return () =>
-        {
-            if (ref.current?.game)
-            {
-                game.dispose()
-                ref.current.game = null
+const useExcaliburGame = (
+    excaliburRef: excaliburRef, 
+    excaliburRefConfig: EngineOptions
+  ): UseExcaliburReturn => {
+
+    const [someState, setSomeState] = useState(false)
+    
+    useLayoutEffect(() => {
+        console.log("useLayoutEffect")
+
+        setTimeout(()=>{
+
+            if (excaliburRef.current === null){
+                excaliburRef.current = {game: null, currentScene: null}
+                console.log("excaliburRef.current === null")
+                console.log(window.location.href)
+
+                const game = new Engine(excaliburRefConfig)
+                
+                game.start('start', { // name of the start scene 'start'
+                    loader, // Optional loader (but needed for loading images/sounds)
+                    inTransition: new FadeInOut({ // Optional in transition
+                    duration: 1000,
+                    direction: 'in',
+                    color: Color.ExcaliburBlue
+                    })
+                }).then(() => {
+                    excaliburRef.current = {game, currentScene: game.currentScene}
+                }); 
             }
-            ref.current = null
-        }
+        
+            return () => {
+                    if (excaliburRef.current?.game)
+                    {   
+                        excaliburRef.current.game.dispose()
+                    }
+                    excaliburRef.current = null
+            }
+        })
     }, []);
-
-    useEffect(() =>
-    {
-        // EventEmitter
+    
+    useEffect(() => {
+            // EventEmitter
     }, []);
+  
+    return [setSomeState];
+  };
 
-    return
-}
-
-export {ExcaliburGame as default, type IPropsExcaliburGame, type IRefExcaliburGame}
+export {useExcaliburGame as default, type excaliburRef, type UseExcaliburReturn}
