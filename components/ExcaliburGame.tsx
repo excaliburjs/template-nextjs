@@ -1,9 +1,12 @@
 import { DisplayMode } from "excalibur"
 import { MyLevel } from "@/excalibur/level"
 
-import useExcaliburGame, { IExcaliburRefComponentProp } from "@/hooks/useExcaliburGame";
+import useExcaliburGame, { IExcaliburRef } from "@/hooks/useExcaliburGame";
 
-const ExcaliburGame = ({ref}: IExcaliburRefComponentProp)=> {
+type IExcaliburGameComponentProps = {ref: IExcaliburRef}
+
+
+const ExcaliburGame = ({ref}: IExcaliburGameComponentProps)=> {
     const excaliburConfig = {
         width: 800, // Logical width and height in game pixels
         height: 600,
@@ -25,4 +28,4 @@ const ExcaliburGame = ({ref}: IExcaliburRefComponentProp)=> {
     return <></>
 }
 
-export default ExcaliburGame
+export {ExcaliburGame as default, type IExcaliburGameComponentProps}

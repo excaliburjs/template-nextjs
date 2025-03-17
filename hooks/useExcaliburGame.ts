@@ -11,8 +11,6 @@ interface IRefExcaliburGame
 
 type IExcaliburRef = RefObject<IRefExcaliburGame | null>
 
-type IExcaliburRefComponentProp = {ref: IExcaliburRef}
-
 // type UseExcaliburReturn = [
 //     setSomeState:Dispatch<SetStateAction<boolean>>
 // ]
@@ -26,37 +24,29 @@ const useExcaliburGame = (
     const [someState, setSomeState] = useState(false)
     
     useLayoutEffect(() => {
-        console.log("useLayoutEffect")
-
-        setTimeout(()=>{
-
-            if (excaliburRef.current === null){
-                excaliburRef.current = {game: null, currentScene: null}
-                console.log("excaliburRef.current === null")
-                console.log(window.location.href)
-
-                const game = new Engine(excaliburRefConfig)
-                
-                game.start('start', { // name of the start scene 'start'
-                    loader, // Optional loader (but needed for loading images/sounds)
-                    inTransition: new FadeInOut({ // Optional in transition
-                    duration: 1000,
-                    direction: 'in',
-                    color: Color.ExcaliburBlue
-                    })
-                }).then(() => {
-                    excaliburRef.current = {game, currentScene: game.currentScene}
-                }); 
-            }
-        
-            return () => {
-                    if (excaliburRef.current?.game)
-                    {   
-                        excaliburRef.current.game.dispose()
-                    }
-                    excaliburRef.current = null
-            }
-        })
+        if (excaliburRef.current === null){
+            excaliburRef.current = {game: null, currentScene: null}
+            const game = new Engine(excaliburRefConfig)
+            
+            game.start('start', { // name of the start scene 'start'
+                loader, // Optional loader (but needed for loading images/sounds)
+                inTransition: new FadeInOut({ // Optional in transition
+                duration: 1000,
+                direction: 'in',
+                color: Color.ExcaliburBlue
+                })
+            }).then(() => {
+                excaliburRef.current = {game, currentScene: game.currentScene}
+            }); 
+        }
+    
+        return () => {
+                if (excaliburRef.current?.game)
+                {   
+                    excaliburRef.current.game.dispose()
+                }
+                excaliburRef.current = null
+        }
     }, []);
     
     useEffect(() => {
@@ -66,4 +56,4 @@ const useExcaliburGame = (
     return [setSomeState];
   };
 
-export {useExcaliburGame as default, type IExcaliburRefComponentProp}
+export {useExcaliburGame as default, type IExcaliburRef}

@@ -39,7 +39,6 @@ export class Player extends Actor {
     // 2. You need excalibur to be initialized & started 
     // 3. Deferring logic to run time instead of constructor time
     // 4. Lazy instantiation
-    console.log("Resources.Sword", Resources.Sword)
     this.graphics.add(Resources.Sword.toSprite());
 
     // Actions are useful for scripting common behavior, for example patrolling enemies

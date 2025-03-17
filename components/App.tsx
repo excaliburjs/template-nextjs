@@ -5,12 +5,11 @@
 
 import dynamic from "next/dynamic";
 import { useRef } from "react"
-import { IExcaliburRefComponentProp } from "@/hooks/useExcaliburGame";
+import { IExcaliburGameComponentProps } from "./ExcaliburGame"
 
-
-const ExcaliburGame = dynamic<IExcaliburRefComponentProp>(() => import('./ExcaliburGame'), {
+const ExcaliburGame = dynamic<IExcaliburGameComponentProps>(() => import('./ExcaliburGame'), {
   ssr: false,
-  // width/height copied from game config in main.ts
+  // width/height copied from game config in ExcaliburGame.tsx
   loading: () => <div style={{width:800,height: 600}}></div>
 });
 export default function App() {
