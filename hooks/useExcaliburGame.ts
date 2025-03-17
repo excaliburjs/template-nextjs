@@ -24,29 +24,34 @@ const useExcaliburGame = (
     const [someState, setSomeState] = useState(false)
     
     useLayoutEffect(() => {
-        if (excaliburRef.current === null){
-            excaliburRef.current = {game: null, currentScene: null}
-            const game = new Engine(excaliburRefConfig)
-            
-            game.start('start', { // name of the start scene 'start'
-                loader, // Optional loader (but needed for loading images/sounds)
-                inTransition: new FadeInOut({ // Optional in transition
-                duration: 1000,
-                direction: 'in',
-                color: Color.ExcaliburBlue
-                })
-            }).then(() => {
-                excaliburRef.current = {game, currentScene: game.currentScene}
-            }); 
-        }
-    
-        return () => {
-                if (excaliburRef.current?.game)
-                {   
-                    excaliburRef.current.game.dispose()
-                }
-                excaliburRef.current = null
-        }
+
+        setTimeout(()=>{
+            if (excaliburRef.current === null){
+                excaliburRef.current = {game: null, currentScene: null}
+
+                const game = new Engine(excaliburRefConfig)
+                
+                game.start('start', { // name of the start scene 'start'
+                    loader, // Optional loader (but needed for loading images/sounds)
+                    inTransition: new FadeInOut({ // Optional in transition
+                    duration: 1000,
+                    direction: 'in',
+                    color: Color.ExcaliburBlue
+                    })
+                }).then(() => {
+                    excaliburRef.current = {game, currentScene: game.currentScene}
+                }); 
+            }
+        
+            return () => {
+                    if (excaliburRef.current?.game)
+                    {   
+                        excaliburRef.current.game.dispose()
+                    }
+                    excaliburRef.current = null
+            }
+        })
+        
     }, []);
     
     useEffect(() => {
