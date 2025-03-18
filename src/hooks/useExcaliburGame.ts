@@ -11,15 +11,16 @@ interface IRefExcaliburGame
 
 type IExcaliburRef = RefObject<IRefExcaliburGame | null>
 
-// type UseExcaliburReturn = [
-//     setSomeState:Dispatch<SetStateAction<boolean>>
-// ]
+type UseExcaliburReturn = [
+    someState: any,
+    setSomeState:Dispatch<SetStateAction<any>>
+]
 
 
 const useExcaliburGame = (
     excaliburRef: IExcaliburRef, 
     excaliburRefConfig: EngineOptions
-  )/*: UseExcaliburReturn */ => {
+  ): UseExcaliburReturn => {
 
     const [someState, setSomeState] = useState(false)
     
@@ -56,7 +57,7 @@ const useExcaliburGame = (
             // EventEmitter
     }, []);
   
-    return [setSomeState];
+    return [someState, setSomeState];
   };
 
 export {useExcaliburGame as default, type IExcaliburRef}

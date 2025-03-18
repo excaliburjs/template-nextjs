@@ -23,7 +23,7 @@ const ExcaliburGame = ({ref}: IExcaliburGameComponentProps)=> {
         // fixedUpdateTimestep: 16 // Turn on fixed update timestep when consistent physic simulation is important
       }
     
-    useExcaliburGame(ref, excaliburConfig)
+    const [someState, setSomeState] = useExcaliburGame(ref, excaliburConfig)
 
     return <></>
 }
